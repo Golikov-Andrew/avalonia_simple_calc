@@ -1,0 +1,154 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AvaloniaApplication2.MainWindow"
+        xmlns:local="using:AvaloniaApplication2"
+        x:CompileBindings="True"
+        Width="540" Height="300"
+        Title="Calculator">
+    
+    <Grid ColumnDefinitions="44,44,44,44,44,44,44,44,44,44,44,44" RowDefinitions="44,44,44,44,44,44,44" 
+          HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid x:Name="RightSide" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="6" Grid.RowSpan="7" 
+              ColumnDefinitions="44,44,44,44,44,44" RowDefinitions="44,44,44,44,44,44,44" >
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Center" 
+                   HorizontalAlignment="Right" Padding="6 0 ">save history?</Label>
+            <CheckBox x:Name="IsSaveHistoryCheckbox" Grid.Row="0" Grid.Column="3" IsChecked="True"></CheckBox>
+            <Button Grid.Column="4" Grid.Row="0" Click="ClearHistory" HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="36" Height="36" FontSize="20" Padding="0 4 0 0" 
+                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="white">
+                &#128465;
+            </Button>
+            <Button Grid.Column="5" Grid.Row="0" Click="UndoHistory" HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="36" Height="36" FontSize="26" HorizontalContentAlignment="Center" Padding="0"
+                    VerticalContentAlignment="Center" Background="white">
+                &#9100;
+            </Button>
+            <ScrollViewer Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="5" 
+                          Margin="0 4 0 0">
+                <ListBox x:Name="Results">
+                </ListBox>
+            </ScrollViewer>
+        </Grid>
+        
+        <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Right"
+               Padding="6 0 ">show history?</Label>
+        <RadioButton IsCheckedChanged="ToggleButton_OnIsCheckedChanged" Grid.Row="0" Grid.Column="4" 
+                     HorizontalContentAlignment="Left" GroupName="isShowHistory" Content="N"/>
+        <RadioButton IsCheckedChanged="ToggleButton_OnIsCheckedChanged" Grid.Row="0" Grid.Column="5" 
+                     HorizontalContentAlignment="Left" GroupName="isShowHistory" Content="Y" IsChecked="True"/>
+        <TextBlock TextAlignment="Right" Grid.Row="1" Grid.ColumnSpan="6" x:Name="expressionTextBlock"
+                   Margin="0 4" Background="#D5E8D4" Width="256" Height="44" FontSize="22" Padding="10">
+        </TextBlock>
+        <TextBlock TextAlignment="Right" Grid.Row="2" Grid.ColumnSpan="6" x:Name="resultTextBlock"
+                   Margin="0 4" Background="#D5E8D4" Width="256" Height="44" FontSize="22" Padding="10">
+        </TextBlock>
+        <Button Grid.Column="0" Grid.Row="3" Click="WriteNumber" HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="36" Height="36" FontSize="22" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+            1
+        </Button>
+        <Button Grid.Column="1" Grid.Row="3" Click="WriteNumber" HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="36" Height="36" FontSize="22" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+            2
+        </Button>
+        <Button Grid.Column="2" Grid.Row="3" Click="WriteNumber" HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="36" Height="36" FontSize="22" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+            3
+        </Button>
+        <Button Grid.Column="3" Grid.Row="3" Click="WriteNumber" HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="36" Height="36" FontSize="22" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+            0
+        </Button>
+        <Button Grid.Column="4" Grid.Row="3" Click="WriteNumber" HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="36" Height="36" FontSize="22" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+            .
+        </Button>
+        <Button Grid.Column="5" Grid.Row="3" Click="ResetAll" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Width="36" Height="36" FontSize="22" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+            C
+        </Button>
+        <Button Grid.Column="0" Grid.Row="4" Click="WriteNumber" HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="36" Height="36" FontSize="22" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+            4
+        </Button>
+        <Button Grid.Column="1" Grid.Row="4" Click="WriteNumber" HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="36" Height="36" FontSize="22" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+            5
+        </Button>
+        <Button Grid.Column="2" Grid.Row="4" Click="WriteNumber" HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="36" Height="36" FontSize="22" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+            6
+        </Button>
+        <Button Grid.Column="0" Grid.Row="5" Click="WriteNumber" HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="36" Height="36" FontSize="22" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+            7
+        </Button>
+        <Button Grid.Column="1" Grid.Row="5" Click="WriteNumber" HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="36" Height="36" FontSize="22" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+            8
+        </Button>
+        <Button Grid.Column="2" Grid.Row="5" Click="WriteNumber" HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="36" Height="36" FontSize="22" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+            9
+        </Button>
+        <Button Grid.Column="3" Grid.Row="4" Click="Operator" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Width="36" Height="36" FontSize="22" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+            +
+        </Button>
+        <Button Grid.Column="4" Grid.Row="4" Click="Operator" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Width="36" Height="36" FontSize="22" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+            -
+        </Button>
+        <Button Grid.Column="3" Grid.Row="5" Click="Operator" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Width="36" Height="36" FontSize="22" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+            /
+        </Button>
+        <Button Grid.Column="4" Grid.Row="5" Click="Operator" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Width="36" Height="36" FontSize="22" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+            *
+        </Button>
+        <Button Grid.Column="5" Grid.Row="4" Click="Backspace" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Width="36" Height="36" FontSize="22" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+            &lt;-
+        </Button>
+        <Button Grid.Column="5" Grid.Row="5" Click="EvaluateExpression" HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="36" Height="36" FontSize="22" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+            =
+        </Button>
+    </Grid>
+</Window>
